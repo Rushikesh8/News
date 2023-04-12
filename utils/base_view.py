@@ -20,3 +20,11 @@ class BaseView(APIView):
             field_string = ", ".join(missing_fields)
             api_raise_validation_error_send_400(f'Field/s {field_string} {is_or_are} missing in the request!')
         return input_data
+
+    def validate_image_content_type(self,image):
+
+        if bool(image):
+            if image.content_type not in ['image/jpeg','image/png']:
+                api_raise_validation_error_send_400(f'Field image is of invalid content type')
+        return image
+
