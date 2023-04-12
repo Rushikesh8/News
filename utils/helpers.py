@@ -14,7 +14,8 @@ def api_raise_validation_error_send_400(error_message):
 
 def update_db_object(db_object:object, update_data:dict) -> object:
     for attribute, value in update_data.items():
-        setattr(db_object, attribute, value)
+        if hasattr(db_object,attribute):
+            setattr(db_object, attribute, value)
     db_object.save()
     return db_object
 
