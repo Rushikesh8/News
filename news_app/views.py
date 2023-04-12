@@ -1,13 +1,9 @@
-from rest_framework import permissions
-from news_app.base_view import BaseView
-from news_app.helpers import api_success_response,api_error_response,update_db_object
+from utils.base_view import BaseView
+from utils.helpers import api_success_response,api_error_response,update_db_object
 from news_app.db_api import create_news,filter_news,get_news
-from datetime import datetime
-from django.utils.timezone import get_current_timezone,make_aware
-from news_app.pagination import paginated_response
+from utils.pagination import paginated_response
 from django.db.models import Q
 from news_app.serilaizers import NewsSerializer
-from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 
 class NewsAPIView(BaseView):
@@ -29,10 +25,6 @@ class NewsAPIView(BaseView):
         news_data = {"user":request.user}
         for field in mandatory_fields:
             news_data.update({field:request.data.get(field)})
-        # news_data.update({
-        # # "date": make_aware(datetime.strptime(news_data["date"],"%d/%m/%Y"))
-        # "date":pytz.utc.localize(datetime.strptime(news_data["date"],"%d/%m/%Y"))
-        # })
         try:
             create_news(**news_data)
         except Exception as e:
@@ -70,4 +62,4 @@ class IndividualNewsView(BaseView):
         except Exception as e:
             return api_error_response(error_message=str(e))
 
-        return api_success_response(response_data={},message=f"News Deleted Succesfully",status=204)
+        return api_success_response(response_data={},message=f"News Deleted Succesfully")

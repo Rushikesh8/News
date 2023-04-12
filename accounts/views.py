@@ -1,14 +1,12 @@
-from news_app.base_view import BaseView
+from utils.base_view import BaseView
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password
-from news_app.helpers import api_error_response,api_success_response
+from utils.helpers import api_error_response,api_success_response
 from django.core.exceptions import ObjectDoesNotExist
 from .serializers import SignInSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny 
-
-
 
 class SignInView(BaseView):
     permission_classes=(AllowAny,)
