@@ -6,5 +6,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/news/',include("news_app.urls",namespace="news_app")),
+    path('api/news_app/',include("news_app.urls",namespace="news_app")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
